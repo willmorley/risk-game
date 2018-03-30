@@ -2,7 +2,8 @@
 .equ HEX5_4_BASE, 0xFF200030
 .equ LED_BASE, 0xFF200000
 
-
+.text
+.global DISPLAY
 DISPLAY:
     # r4 is mem addr of element to display
     # store registers to stack
