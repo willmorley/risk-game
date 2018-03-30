@@ -14,16 +14,16 @@ DISPLAY:
     stw r19, 12(sp)
     stw r20, 16(sp)
     stw r21, 20(sp)
-    movia r16, HEX3_0_BASE
+
     # format values
 FIVE_FOUR:
     ldw r19, 0(r4) 
-    srli r20, r19, 8 
+    andi r20, r20, 0b11111111
     ldbu r21, HEX_PATTERNS(r20)
 
     slli r18, r21, 8
     
-    #srli r20, r19, 16
+    srli r20, r19, 8 
     andi r20, r19, 0b11111111
     mov r21, r0
     ldbu r21, HEX_PATTERNS(r20)
@@ -36,13 +36,14 @@ FIVE_FOUR:
 THREE_ZERO:
 
     srli r20, r19, 16
+    andi r20, r20, 0b11111111
     ldbu r21, HEX_PATTERNS(r20)
     
     slli r18, r21, 24
     
     ldw r19, 4(r4)
     ldw r20, 0(r19)
-    srli r20, r20, 24
+    andi r20, r20, 0b11111111
     ldbu r21, HEX_PATTERNS(r20) 
 
     slli r21, r21, 16
@@ -51,7 +52,7 @@ THREE_ZERO:
 
     ldw r19, 8(r4)
     ldw r20, 0(r19)
-    srli r20, r20, 24
+    andi r20, r20, 0b11111111
     ldbu r21, HEX_PATTERNS(r20) 
 
     slli r21, r21, 8 
@@ -60,7 +61,7 @@ THREE_ZERO:
 
     ldw r19, 12(r4)
     ldw r20, 0(r19)
-    srli r20, r20, 24
+    andi r20, r20, 0b11111111
     ldbu r21, HEX_PATTERNS(r20) 
 
     or r18, r18, r21
