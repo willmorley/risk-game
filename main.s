@@ -3,6 +3,7 @@
 
 _start:
     movia r4, T_1
+    addi sp, r0, 0x10000
     call DISPLAY
 END:
     br END
