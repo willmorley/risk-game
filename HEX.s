@@ -18,13 +18,13 @@ DISPLAY:
     # format values
 FIVE_FOUR:
     ldw r19, 0(r4) 
-    andi r20, r20, 0b11111111
+    andi r20, r19, 0b11111111
     ldbu r21, HEX_PATTERNS(r20)
 
     slli r18, r21, 8
     
     srli r20, r19, 8 
-    andi r20, r19, 0b11111111
+    andi r20, r20, 0b11111111
     mov r21, r0
     ldbu r21, HEX_PATTERNS(r20)
 
