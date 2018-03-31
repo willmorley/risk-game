@@ -12,26 +12,27 @@ BACKGROUND:
 _start:
     movia r2,ADDR_VGA
     
-    movi r5, 239 # y max
-    movi r6, -1 # y current
-    movi r7, 0 # x max (added 1 to account for start at 1)
-    movi r8, 321 # x current
+    movi r5, 0 # y max
+    movi r6, 240 # y current
+    movi r7, 320 # x max (added 1 to account for start at 1)
+    movi r8, -1 # x current
     movi r12, OFFSET
+/*
     addi r12, r12, 30720
     addi r12, r12, 30720
     addi r12, r12, 30720
     addi r12, r12, 30720
     addi r12, r12, 30720
-
+*/
 OUTER:
-    bge r6, r5, END
-    addi r6, r6, 1
-    addi r12, r12, 2
-    movi r8, 321
+    ble r6, r5, END
+    addi r6, r6, -1
+    addi r12, r12, -2
+    movi r8, -1
 INNER:
-    ble r8, r7, OUTER
-    addi r8, r8, -1
-    addi r12, r12, -2 
+    bge r8, r7, OUTER
+    addi r8, r8, 1
+    addi r12, r12, 2 
 /*
     mov r9, r0
     add r9, r6, r8
