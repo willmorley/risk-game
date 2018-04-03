@@ -1,10 +1,8 @@
-.equ ADDR_VGA, 0x08000000
-.equ OFFSET, 0x0000008A
-.equ SW_BASE, 0xFF200040
+.equ ADDR_CHAR, 0x09000000
 
 .section .data
-.align 2
-
+#.align 2
+# essentially behaves as though you had .byte .... [many many bytes declared]...
 BACKGROUND:
    .incbin "background.bmp"
 BACKGROUND_T_1:
