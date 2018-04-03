@@ -3,6 +3,8 @@
  Limited to two players
 */
 
+#.include "BoardSetup.s"
+
 .section .text
 .global _start
 
@@ -18,7 +20,7 @@
 ##########################
 
 _start:
-    addi sp, r0, 0x1000 # comment when running on board
+    #addi sp, r0, 0x04000000 # comment when running on board
     movi r16, 0  # player 1 goes first
 
 MAIN:
@@ -26,12 +28,13 @@ MAIN:
     # r4 holds current player turn
     mov r4, r16
     # Executes main gameplay functionality
-    call TURN_LOOP
+    #call TURN_LOOP
 
     # No arguments sent, nothing returned. Based off switches
     # Displays selected territory info on seg7 displays
     call DISPLAY # used for testing
-
+	
+	call VGA
     # No arguments needed
     # r2 returns 1 if game over else return 0
     # r3 returns winning player if r2 is 1
@@ -43,7 +46,7 @@ MAIN:
     # setup switch player arguments
     mov r4, r16
     # call switch player
-    call SWITCH_PLAYER
+   # call SWITCH_PLAYER
 
     br MAIN
 
@@ -52,6 +55,6 @@ END_GAME:
     mov r4, r3
     # Game_Over function implements different VGA
     # background depending on winner
-    call GAME_OVER
+    #call GAME_OVER
 END:
     br END

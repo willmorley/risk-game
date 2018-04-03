@@ -1,5 +1,14 @@
 .section .data
 .align 2
+.global T_1
+.global T_2
+.global T_3
+.global T_4
+.global T_5
+.global T_6
+.global HEX_PATTERNS
+.global SWITCH_PAIR
+
 T_1:
 	.byte 1     # Terriotry number
 	.byte 0     # Player number (0/1)
@@ -71,6 +80,7 @@ HEX_PATTERNS:
     .byte  0xf1           		/* F */
 
 SWITCH_PAIR:
+	.word T_1
     .word T_1
     .word T_2
     .word T_3

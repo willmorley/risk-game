@@ -3,8 +3,8 @@
 .equ HEX5_4_BASE,   0xFF200030
 .equ SW_BASE,       0xFF200040
 
-#.text # comment this when using simulator
-#.global DISPLAY
+.text # comment this when using simulator
+.global DISPLAY
 DISPLAY:
     # store registers to stack
     addi sp, sp, -24
@@ -21,7 +21,7 @@ SWITCH_READ:
     movia r17, SW_BASE
     ldwio r4, 0(r17)
     mov r19, r0
-    movi r19, 6
+    movi r19, 7 # 
     bge r4, r19, LIMIT_DISPLAY
     slli r4, r4, 2
     andi r4, r4, 0b111111111
