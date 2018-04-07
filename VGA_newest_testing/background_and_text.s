@@ -154,6 +154,8 @@ PURPLE8:
    .incbin "purple8.bmp"
 PURPLE9:
    .incbin "purple9.bmp"
+BLUEH0:
+   .incbin "blueH0.bmp"
 BLUEH1:
    .incbin "blueH1.bmp"
 BLUEH2:
