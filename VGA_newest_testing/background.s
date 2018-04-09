@@ -7,6 +7,7 @@
 
 BACKGROUND:
    .incbin "background.bmp"
+# REMOVE THESE ONCE highlight.s is done
 H_1:
    .incbin "H_1.bmp"
 H_2:
@@ -172,6 +173,7 @@ SELECT_MAP:
 	addi r3, r3, 1
 	#br DRAW_BACK
 	
+	# REMOVE THESE ONCE highlight.s is done
 	beq r4, r3, DRAW_H_1
 	addi r3, r3, 1
 	beq r4, r3, DRAW_H_2
@@ -263,6 +265,7 @@ DRAW_BACK:
 	movia r3, BACKGROUND
 	add r23, r23, r3
 	br OUTER
+# REMOVE THESE ONCE highlight.s is done
 DRAW_H_1:
 	movia r3, H_1
 	add r23, r23, r3
