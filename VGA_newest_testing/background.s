@@ -98,15 +98,23 @@ H_43:
 .global VGA
 
 VGA:
-	addi sp, sp, -4
+	addi sp, sp, -36
 	stw ra, 0(sp)
+	stw r16, 4(sp)
+	stw r17, 8(sp)
+	stw r18, 12(sp)
+	stw r19, 16(sp)
+	stw r20, 20(sp)
+	stw r21, 24(sp)
+	stw r22, 28(sp)
+	stw r23, 32(sp)
     movia r2, ADDR_VGA
     
-    movi r5, 0 # y max
-    movi r6, 240 # y current
-    movi r7, 320 # x max (added 1 to account for start at 1)
-    movi r8, -1 # x current
-    movi r12, OFFSET
+    movi r16, 0 # y max
+    movi r17, 240 # y current
+    movi r18, 320 # x max (added 1 to account for start at 1)
+    movi r19, -1 # x current
+    movi r23, OFFSET
 
 	# select correct image to draw
 	movia r3, SW_BASE
@@ -115,30 +123,30 @@ VGA:
 	br SELECT_MAP
 
 OUTER:
-    ble r6, r5, DRAW_NUMBERS
-    addi r6, r6, -1
-    addi r12, r12, -2
-    movi r8, -1
+    ble r17, r16, DRAW_NUMBERS
+    addi r17, r17, -1
+    addi r23, r23, -2
+    movi r19, -1
 INNER:
-    bge r8, r7, OUTER
-    addi r8, r8, 1
-    addi r12, r12, 2 
+    bge r19, r18, OUTER
+    addi r19, r19, 1
+    addi r23, r23, 2 
 
 	# find location to store pixel
-    slli r10, r8, 1 #mulitply by 2
-    slli r11, r6, 10 # multiply by 1024
-    add r10, r10, r11
-    movi r11, 0x8
-    slli r11, r11, 24
-    add r10, r10, r11
+    slli r22, r19, 1  # mulitply by 2
+    slli r21, r17, 10 # multiply by 1024
+    add r22, r22, r21
+    movi r21, 0x8
+    slli r21, r21, 24
+    add r22, r22, r21
 	
 	# clear pixel
     movui r4, 0xFFFF
-    sthio r4, 0(r10)
+    sthio r4, 0(r22)
 	
 	# Draw pixel
-    ldhu r4, 0(r12)
-    sthio r4, 0(r10)
+    ldhu r4, 0(r23)
+    sthio r4, 0(r22)
 
     br INNER
 
@@ -146,8 +154,16 @@ DRAW_NUMBERS:
 	call VGA_NUMBERS
 
 END:
+	ldw r16, 4(sp)
+	ldw r17, 8(sp)
+	ldw r18, 12(sp)
+	ldw r19, 16(sp)
+	ldw r20, 20(sp)
+	ldw r21, 24(sp)
+	ldw r22, 28(sp)
+	ldw r23, 32(sp)
 	ldw ra, 0(sp)
-	addi sp, sp, 4
+	addi sp, sp, 36
     ret
 
 SELECT_MAP:
@@ -245,177 +261,177 @@ SELECT_MAP:
 
 DRAW_BACK:
 	movia r3, BACKGROUND
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_1:
 	movia r3, H_1
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_2:
 	movia r3, H_2
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_3:
 	movia r3, H_3
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_4:
 	movia r3, H_4
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_5:
 	movia r3, H_5
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_6:
 	movia r3, H_6
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_7:
 	movia r3, H_7
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_8:
 	movia r3, H_8
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_9:
 	movia r3, H_9
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_10:
 	movia r3, H_10
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_11:
 	movia r3, H_11
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_12:
 	movia r3, H_12
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_13:
 	movia r3, H_13
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_14:
 	movia r3, H_14
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_15:
 	movia r3, H_15
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_16:
 	movia r3, H_16
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_17:
 	movia r3, H_17
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_18:
 	movia r3, H_18
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_19:
 	movia r3, H_19
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_20:
 	movia r3, H_20
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_21:
 	movia r3, H_21
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_22:
 	movia r3, H_22
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_23:
 	movia r3, H_23
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_24:
 	movia r3, H_24
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_25:
 	movia r3, H_25
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_26:
 	movia r3, H_26
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_27:
 	movia r3, H_27
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_28:
 	movia r3, H_28
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_29:
 	movia r3, H_29
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_30:
 	movia r3, H_30
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_31:
 	movia r3, H_31
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_32:
 	movia r3, H_32
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_33:
 	movia r3, H_33
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_34:
 	movia r3, H_34
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_35:
 	movia r3, H_35
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_36:
 	movia r3, H_36
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_37:
 	movia r3, H_37
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_38:
 	movia r3, H_38
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_39:
 	movia r3, H_39
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_40:
 	movia r3, H_40
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_41:
 	movia r3, H_41
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_42:
 	movia r3, H_42
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER
 DRAW_H_43:
 	movia r3, H_43
-	add r12, r12, r3
+	add r23, r23, r3
 	br OUTER

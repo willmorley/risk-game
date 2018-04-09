@@ -1,50 +1,11 @@
 .equ ADDR_VGA, 0x08000000
-.equ OFFSET_NUMBERS, 0x00000094
+.equ OFFSET_NUMBERS, 0x0000008A
 
 .section .data
 .align 2
 
-# numbers are 3x5
-BLUE0:
-   .incbin "blue0.bmp"
-BLUE1:
-   .incbin "blue1.bmp"
-BLUE2:
-   .incbin "blue2.bmp"
-BLUE3:
-   .incbin "blue3.bmp"
-BLUE4:
-   .incbin "blue4.bmp"
-BLUE5:
-   .incbin "blue5.bmp"
-BLUE6:
-   .incbin "blue6.bmp"
-BLUE7:
-   .incbin "blue7.bmp"
-BLUE8:
-   .incbin "blue8.bmp"
-BLUE9:
-   .incbin "blue9.bmp"
-RED0:
-   .incbin "red0.bmp"
-RED1:
-   .incbin "red1.bmp"
-RED2:
-   .incbin "red2.bmp"
-RED3:
-   .incbin "red3.bmp"
-RED4:
-   .incbin "red4.bmp"
-RED5:
-   .incbin "red5.bmp"
-RED6:
-   .incbin "red6.bmp"
-RED7:
-   .incbin "red7.bmp"
-RED8:
-   .incbin "red8.bmp"
-RED9:
-   .incbin "red9.bmp"
+#temp storage - relocae
+/*
 PURPLE0:
    .incbin "purple0.bmp"
 PURPLE1:
@@ -105,12 +66,12 @@ REDH8:
    .incbin "redH8.bmp"
 REDH9:
    .incbin "redH9.bmp"
+*/
 
 .section .text
 .global VGA_NUMBERS
 
 VGA_NUMBERS:
-
 	addi sp, sp, -36
 	stw ra, 0(sp)
 	stw r16, 4(sp)
@@ -122,11 +83,10 @@ VGA_NUMBERS:
 	stw r22, 28(sp)
 	stw r23, 32(sp)
     movia r2, ADDR_VGA
-    # for actual, change to 42 (+1 (i.e. 43)!!!)
-    movi r21, 5 # downcounter
+    # for actual, change to 43 (+1 (i.e. 44)!!!)
+    movi r21, 44 # downcounter
 
 MOST_OUTER:
-	
     addi r21, r21, -1
 	beq r21, r0, END
 
@@ -134,21 +94,20 @@ MOST_OUTER:
 	movi r17, 0 # y max
     movi r18, 5 # y current
     movi r19, 3 # x max (added 1 to account for start at 1)
-    movi r20, -1 # x current
+    movi r20, 0 # x current
     movi r23, OFFSET_NUMBERS
+    mov r4, r21
     call SELECT_T_NUMBER
     mov r9, r2
-
-    # select which colour/number will be drawn to current ter.
-    # will be a fn that knows which ter. we on
-    # prev. addi will screw up
-    br DRAW_RED1
+    add r23, r23, r3
+    addi r23, r23, -4
 
 OUTER:
     ble r18, r17, MOST_OUTER
     addi r18, r18, -1
-    addi r23, r23, -2
-    movi r20, -1
+    addi r23, r23, 2
+    movi r20, 0
+    
 INNER:
     bge r20, r19, OUTER
     addi r20, r20, 1
@@ -189,159 +148,8 @@ END:
 	addi sp, sp, 36
     ret
 
+# temp storage
 /*
-SELECT_NUMBERS:
-	mov r3, r0
-	beq r16, r3, DRAW_RED0
-	addi r3, r3, 1	
-
-	beq r16, r3, DRAW_RED1
-	addi r3, r3, 1	
-
-	beq r16, r3, DRAW_RED2
-	addi r3, r3, 1	
-
-	beq r16, r3, DRAW_BLUE0
-	addi r3, r3, 1	
-
-	beq r16, r3, DRAW_BLUE1
-	addi r3, r3, 1	
-
-	beq r16, r3, DRAW_BLUE2
-	addi r3, r3, 1	
-
-	beq r16, r3, DRAW_PURPLE0
-	addi r3, r3, 1	
-
-	beq r16, r3, DRAW_PURPLE1
-	addi r3, r3, 1	
-
-	beq r16, r3, DRAW_PURPLE2
-	addi r3, r3, 1	
-
-	beq r16, r3, DRAW_REDH0
-	addi r3, r3, 1	
-
-	beq r16, r3, DRAW_REDH1
-	addi r3, r3, 1	
-
-	beq r16, r3, DRAW_REDH2
-	addi r3, r3, 1	
-
-	beq r16, r3, DRAW_BLUEH0
-	addi r3, r3, 1	
-
-	beq r16, r3, DRAW_BLUEH1
-	addi r3, r3, 1	
-
-	beq r16, r3, DRAW_BLUEH2
-	addi r3, r3, 1
-	br DRAW_RED0
-*/
-
-#SELECT_NUMBER:
-	# access province army number and team check
-
-DRAW_BLUE0:
-	movia r3, BLUE0
-	add r23, r23, r3
-	br OUTER
-
-DRAW_BLUE1:
-	movia r3, BLUE1
-	add r23, r23, r3
-	br OUTER
-
-DRAW_BLUE2:
-	movia r3, BLUE2
-	add r23, r23, r3
-	br OUTER
-
-DRAW_BLUE3:
-	movia r3, BLUE3
-	add r23, r23, r3
-	br OUTER
-
-DRAW_BLUE4:
-	movia r3, BLUE4
-	add r23, r23, r3
-	br OUTER
-
-DRAW_BLUE5:
-	movia r3, BLUE5
-	add r23, r23, r3
-	br OUTER
-
-DRAW_BLUE6:
-	movia r3, BLUE6
-	add r23, r23, r3
-	br OUTER
-
-DRAW_BLUE7:
-	movia r3, BLUE7
-	add r23, r23, r3
-	br OUTER
-
-DRAW_BLUE8:
-	movia r3, BLUE8
-	add r23, r23, r3
-	br OUTER
-
-DRAW_BLUE9:
-	movia r3, BLUE9
-	add r23, r23, r3
-	br OUTER
-
-DRAW_RED0:
-	movia r3, RED0
-	add r23, r23, r3
-	br OUTER
-
-DRAW_RED1:
-	movia r3, RED1
-	add r23, r23, r3
-	br OUTER
-
-DRAW_RED2:
-	movia r3, RED2
-	add r23, r23, r3
-	br OUTER
-
-DRAW_RED3:
-	movia r3, RED3
-	add r23, r23, r3
-	br OUTER
-
-DRAW_RED4:
-	movia r3, RED4
-	add r23, r23, r3
-	br OUTER
-
-DRAW_RED5:
-	movia r3, RED5
-	add r23, r23, r3
-	br OUTER
-
-DRAW_RED6:
-	movia r3, RED6
-	add r23, r23, r3
-	br OUTER
-
-DRAW_RED7:
-	movia r3, RED7
-	add r23, r23, r3
-	br OUTER
-
-DRAW_RED8:
-	movia r3, RED8
-	add r23, r23, r3
-	br OUTER
-
-DRAW_RED9:
-	movia r3, RED9
-	add r23, r23, r3
-	br OUTER
-
 DRAW_PURPLE0:
 	movia r3, PURPLE0
 	add r23, r23, r3
@@ -491,3 +299,4 @@ DRAW_REDH9:
 	movia r3, REDH9
 	add r23, r23, r3
 	br OUTER	
+*/
