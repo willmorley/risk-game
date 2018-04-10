@@ -347,7 +347,7 @@ T_30:
     .word 0
     .word T_31
 T_31:
-    .byte 3
+    .byte 31
     .byte 1
     .hword 3
     .word T_1
