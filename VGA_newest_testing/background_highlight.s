@@ -5,9 +5,6 @@
 .section .data
 .align 2
 
-BACKGROUND:
-   .incbin "background.bmp"
-# REMOVE THESE ONCE highlight.s is done
 H_1:
    .incbin "H_1.bmp"
 H_2:
@@ -96,9 +93,9 @@ H_43:
    .incbin "H_43.bmp"
 
 .section .text
-.global VGA
+.global VGA_HIGHLIGHT
 
-VGA:
+VGA_HIGHLIGHT:
 	addi sp, sp, -36
 	stw ra, 0(sp)
 	stw r16, 4(sp)
@@ -118,9 +115,9 @@ VGA:
     movi r23, OFFSET
 
 	# select correct image to draw
-	/*movia r3, SW_BASE
+	movia r3, SW_BASE
     ldwio r4, 0(r3)
-	andi r4, r4, 0b1111111111*/
+	andi r4, r4, 0b1111111111
 	br SELECT_MAP
 
 OUTER:
@@ -152,7 +149,7 @@ INNER:
     br INNER
 
 DRAW_NUMBERS:
-	call VGA_NUMBERS
+	call VGA_HIGHLIGHT_NUMBERS
 
 END:
 	ldw r16, 4(sp)
@@ -169,11 +166,6 @@ END:
 
 SELECT_MAP:
 	mov r3, r0
-	beq r4, r3, DRAW_BACK
-	addi r3, r3, 1
-	#br DRAW_BACK
-	
-	# REMOVE THESE ONCE highlight.s is done
 	beq r4, r3, DRAW_H_1
 	addi r3, r3, 1
 	beq r4, r3, DRAW_H_2
@@ -259,13 +251,8 @@ SELECT_MAP:
 	beq r4, r3, DRAW_H_42
 	addi r3, r3, 1
 	beq r4, r3, DRAW_H_43
-	br DRAW_BACK
+	br DRAW_H_1
 
-DRAW_BACK:
-	movia r3, BACKGROUND
-	add r23, r23, r3
-	br OUTER
-# REMOVE THESE ONCE highlight.s is done
 DRAW_H_1:
 	movia r3, H_1
 	add r23, r23, r3

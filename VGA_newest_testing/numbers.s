@@ -1,73 +1,6 @@
 .equ ADDR_VGA, 0x08000000
 .equ OFFSET_NUMBERS, 0x0000008A
 
-.section .data
-.align 2
-
-#temp storage - relocae
-/*
-PURPLE0:
-   .incbin "purple0.bmp"
-PURPLE1:
-   .incbin "purple1.bmp"
-PURPLE2:
-   .incbin "purple2.bmp"
-PURPLE3:
-   .incbin "purple3.bmp"
-PURPLE4:
-   .incbin "purple4.bmp"
-PURPLE5:
-   .incbin "purple5.bmp"
-PURPLE6:
-   .incbin "purple6.bmp"
-PURPLE7:
-   .incbin "purple7.bmp"
-PURPLE8:
-   .incbin "purple8.bmp"
-PURPLE9:
-   .incbin "purple9.bmp"
-BLUEH0:
-   .incbin "blueH0.bmp"
-BLUEH1:
-   .incbin "blueH1.bmp"
-BLUEH2:
-   .incbin "blueH2.bmp"
-BLUEH3:
-   .incbin "blueH3.bmp"
-BLUEH4:
-   .incbin "blueH4.bmp"
-BLUEH5:
-   .incbin "blueH5.bmp"
-BLUEH6:
-   .incbin "blueH6.bmp"
-BLUEH7:
-   .incbin "blueH7.bmp"
-BLUEH8:
-   .incbin "blueH8.bmp"
-BLUEH9:
-   .incbin "blueH9.bmp"
-REDH0:
-   .incbin "redH0.bmp"
-REDH1:
-   .incbin "redH1.bmp"
-REDH2:
-   .incbin "redH2.bmp"
-REDH3:
-   .incbin "redH3.bmp"
-REDH4:
-   .incbin "redH4.bmp"
-REDH5:
-   .incbin "redH5.bmp"
-REDH6:
-   .incbin "redH6.bmp"
-REDH7:
-   .incbin "redH7.bmp"
-REDH8:
-   .incbin "redH8.bmp"
-REDH9:
-   .incbin "redH9.bmp"
-*/
-
 .section .text
 .global VGA_NUMBERS
 
@@ -83,7 +16,7 @@ VGA_NUMBERS:
 	stw r22, 28(sp)
 	stw r23, 32(sp)
     movia r2, ADDR_VGA
-    # for actual, change to 43 (+1 (i.e. 44)!!!)
+    # for actual, change to 43 + 1
     movi r21, 44 # downcounter
 
 MOST_OUTER:
@@ -117,7 +50,6 @@ INNER:
 	# change start value
 
     slli r22, r20, 1 #mulitply by 2
-    #add r22, r9, r22
     slli r11, r18, 10 # multiply by 1024
     add r22, r22, r11
     movi r11, 0x8
