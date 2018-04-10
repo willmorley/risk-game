@@ -168,22 +168,13 @@ SELECT_PURPLE_T_NUMBER:
 	addi r5, r5, 1
 
 	beq r4, r5, POS_T_43
+	br POS_T_43
 
 ARMY_COUNT_GET:
 	# r19 store word
 	# r18 store ter.
 	ldw r19, 0(r18)
 	srli r19, r19, 16
-	br COLOUR_GET
-
-COLOUR_GET:
-	# r20 player numebr
-	ldw r20, 0(r18)
-	srli r20, r20, 8
-	andi r20, r20, 1
-
-PURPLE_OR_PURPLE:
-	beq r20, r0, SELECT_PURPLE_NUMBERS
 
 SELECT_PURPLE_NUMBERS:
 	mov r3, r0

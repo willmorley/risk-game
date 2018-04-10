@@ -45,6 +45,7 @@ TER_SELECT_POLL_SETUP:
     mov r4, r16
     call DISPLAY
     mov r4, r16
+	mov r5, r18
 	call VGA
 	movia r11, BUTTON_ACTION #r19
     movia r12, WHICH_BUTTON #r20
@@ -176,7 +177,10 @@ ADJACENT_POLL_SETUP:
     mov r4, r19
     call DISPLAY
     mov r4, r19
+	mov r5, r18
 	call VGA
+	mov r4, r16
+	call VGA_PURPLE_NUMBERS
     
     # setup pointers to global vars
 	movia r11, BUTTON_ACTION
@@ -333,8 +337,8 @@ FAILED_ATTACK:
     br GAME_LOOP_EPILOGUE # this would be where you can make multiple moves per turn
 
 GAME_LOOP_EPILOGUE:
-	mov r4, r0
-	call VGA
+	#mov r4, r0
+	#call VGA
 	movia r14, 0xff200000
     stwio r0, 0(r14)    
     ldw ra, 0(sp)

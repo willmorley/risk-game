@@ -188,6 +188,7 @@ SELECT_T_NUMBER:
 	addi r5, r5, 1
 
 	beq r4, r5, POS_T_43
+	br POS_T_43
 
 ARMY_COUNT_GET:
 	# r19 store word
@@ -197,7 +198,7 @@ ARMY_COUNT_GET:
 	br COLOUR_GET
 
 COLOUR_GET:
-	# r20 player numebr
+	# r20 player number
 	ldw r20, 0(r18)
 	srli r20, r20, 8
 	andi r20, r20, 1

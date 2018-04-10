@@ -16,30 +16,23 @@ VGA_HIGHLIGHT_NUMBERS:
 	stw r22, 28(sp)
 	stw r23, 32(sp)
     movia r2, ADDR_VGA
-    ########
-    # Change below: Get the territory to draw from game loop
-    ########
-    # for actual, change to 43 + 1
-    movi r21, 44 # downcounter
 
-MOST_OUTER:
-    addi r21, r21, -1
-	beq r21, r0, END
-
-	# reset to original
+LOOP_PREP:
 	movi r17, 0 # y max
     movi r18, 5 # y current
     movi r19, 3 # x max (added 1 to account for start at 1)
     movi r20, 0 # x current
     movi r23, OFFSET_NUMBERS
-    mov r4, r21
+    # r4 should be pointer to territory that needs to be highlighted
+	ldw r4, 0(r4)
+	andi r4, r4, 0xff
     call SELECT_HIGHLIGHT_T_NUMBER
     mov r9, r2
     add r23, r23, r3
     addi r23, r23, -4
 
 OUTER:
-    ble r18, r17, MOST_OUTER
+    ble r18, r17, END
     addi r18, r18, -1
     addi r23, r23, 2
     movi r20, 0

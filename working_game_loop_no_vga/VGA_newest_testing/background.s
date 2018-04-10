@@ -109,6 +109,11 @@ VGA:
 	stw r22, 28(sp)
 	stw r23, 32(sp)
     movia r2, ADDR_VGA
+
+	addi sp, sp, -8
+	stw r4, 0(sp)	# pointer to highlighted territory
+	stw r5, 4(sp)	# player turn
+	
     
     movi r16, 0 # y max
     movi r17, 240 # y current
@@ -118,6 +123,7 @@ VGA:
 
 	# select correct image to draw
 	/*movia r3, SW_BASE*/
+	mov r20, r4 # store pointer to province for call highlighted number
 	beq r4, r0, SELECT_MAP
     ldw r4, 0(r4)
 	andi r4, r4, 0xff
@@ -153,6 +159,11 @@ INNER:
 
 DRAW_NUMBERS:
 	call VGA_NUMBERS
+	ldw r4, 0(sp)
+	call VGA_HIGHLIGHT_NUMBERS
+	ldw r5, 4(sp)
+	call DRAW_PLAYER_TURN
+	addi sp, sp, 8
 
 END:
 	ldw r16, 4(sp)
