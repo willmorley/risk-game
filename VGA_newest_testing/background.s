@@ -117,9 +117,9 @@ VGA:
     movi r23, OFFSET
 
 	# select correct image to draw
-	movia r3, SW_BASE
+	/*movia r3, SW_BASE
     ldwio r4, 0(r3)
-	andi r4, r4, 0b1111111111
+	andi r4, r4, 0b1111111111*/
 	br SELECT_MAP
 
 OUTER:

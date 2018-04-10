@@ -44,6 +44,8 @@ TER_SELECT_POLL_SETUP:
     # TODO: make 1 go to previous province
     mov r4, r16
     call DISPLAY
+    mov r4, r16
+	call VGA
 	movia r11, BUTTON_ACTION #r19
     movia r12, WHICH_BUTTON #r20
     movia r13, ADDR_PUSHBUTTON #r21
@@ -101,7 +103,8 @@ ARMY_POLL_SETUP:
 	movia r11, BUTTON_ACTION
     movia r12, WHICH_BUTTON
     movia r13, ADDR_PUSHBUTTON
-    
+	movia r14, 0xff200000
+    stwio r17, 0(r14)
     # enable interupts
     movi r8, 0b111
 	stwio r8, 0x8(r13)
@@ -118,6 +121,9 @@ ARMY_POLL:
 	ldw r9, 0(r11)
 	andi r9, r9, 0b1
 	beq r9, r0, ARMY_POLL
+
+	movia r14, 0xff200000
+    stwio r17, 0(r14)
     
     # disable interupts
     movi r8, 0
@@ -161,11 +167,16 @@ ADJACENT_SELECT:
     movi r20, 4
     add r8, r20, r16
    	ldw r19, 0(r8)
+
+	movia r14, 0xff200000
+    stwio r17, 0(r14)
         
 ADJACENT_POLL_SETUP:
 	# update display with that province
     mov r4, r19
     call DISPLAY
+    mov r4, r19
+	call VGA
     
     # setup pointers to global vars
 	movia r11, BUTTON_ACTION
@@ -321,7 +332,11 @@ FAILED_ATTACK:
     
     br GAME_LOOP_EPILOGUE # this would be where you can make multiple moves per turn
 
-GAME_LOOP_EPILOGUE:    
+GAME_LOOP_EPILOGUE:
+	mov r4, r0
+	call VGA
+	movia r14, 0xff200000
+    stwio r0, 0(r14)    
     ldw ra, 0(sp)
     ldw r16, 4(sp)
     ldw r17, 8(sp)
