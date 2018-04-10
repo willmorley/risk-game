@@ -20,8 +20,9 @@
 ##########################
 
 _start:
-    #addi sp, r0, 0x7D00 # comment when running on board
-    #addi sp, sp, 0x7D00 # comment when running on board
+    movi sp, 4
+    slli sp, sp, 24
+
     movi r16, 0  # player 1 goes first
 
 MAIN:
