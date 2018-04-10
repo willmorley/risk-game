@@ -12,12 +12,19 @@
         <source_files>
             <source_file filepath="true">main.s</source_file>
             <source_file filepath="true">gameover.s</source_file>
-            <source_file filepath="true">turn_loop.s</source_file>
             <source_file filepath="true">seg7_display.s</source_file>
-            <source_file filepath="true">../BoardSetup.s</source_file>
-            <source_file filepath="true">../VGA_newest_testing/background.s</source_file>
-            <source_file filepath="true">../VGA_newest_testing/numbers.s</source_file>
-            <source_file filepath="true">../VGA_newest_testing/selectnumber.s</source_file>
+            <source_file filepath="true">turn_loop.s</source_file>
+            <source_file filepath="true">BoardSetup.s</source_file>
+            <source_file filepath="true">VGA_newest_testing/background.s</source_file>
+            <source_file filepath="true">VGA_newest_testing/numbers.s</source_file>
+            <source_file filepath="true">VGA_newest_testing/selectnumber.s</source_file>
+            <source_file filepath="true">VGA_newest_testing/numbers_highlight.s</source_file>
+            <source_file filepath="true">VGA_newest_testing/numbers_purple.s</source_file>
+            <source_file filepath="true">VGA_newest_testing/p1_or_p2_turn.s</source_file>
+            <source_file filepath="true">VGA_newest_testing/p1_or_p2_win.s</source_file>
+            <source_file filepath="true">VGA_newest_testing/selectnumber_highlight.s</source_file>
+            <source_file filepath="true">VGA_newest_testing/selectnumber_purple.s</source_file>
+            <source_file filepath="true">VGA_newest_testing/title_and_instr_screens.s</source_file>
         </source_files>
         <options>
             <start_symbol>_start</start_symbol>

@@ -28,7 +28,7 @@ SKIP_TO_OWNED:
     ldw r17, 0(r16)
     srli r17, r17, 8
     andi r17, r17, 0b1
-    beq r17, r18, TER_SELECT_POLL_SETUP # may need to change to draw subroutine
+    beq r17, r18, CHECK_TROOP_COUNT # may need to change to draw subroutine
 NEXT_TER:    
     # move to next territory and try again
     mov r4, r16
@@ -36,7 +36,12 @@ NEXT_TER:
     mov r16, r2
     br SKIP_TO_OWNED
     
-    # highlight that territory
+
+CHECK_TROOP_COUNT:
+	ldw r17, 0(r16)
+	srli r17, r17, 16
+	movi r4, 1
+	ble r17, r4, NEXT_TER
     
 TER_SELECT_POLL_SETUP:
  	# 0: go to next province

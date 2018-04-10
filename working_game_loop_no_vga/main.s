@@ -22,6 +22,7 @@
 _start:
     movia sp, 0x04000000 # comment when running on board
     movi r16, 0  # player 1 goes first
+    call INTRO_SCREENS
 
 MAIN:
     # setup main turn loop
@@ -29,16 +30,6 @@ MAIN:
     mov r4, r16
     # Executes main gameplay functionality
     call TURN_LOOP
-
-    # No arguments sent, nothing returned. Based off switches
-    # Displays selected territory info on seg7 displays
-    #movia r4, T_1
-    #call DISPLAY # used for testing
-	
-	#call VGA
-    # No arguments needed
-    # r2 returns 1 if game over else return 0
-    # r3 returns winning player if r2 is 1
 
     call TEST_GAMEOVER
 
@@ -60,7 +51,7 @@ END_GAME:
     mov r4, r3
     # Game_Over function implements different VGA
     # background depending on winner
-    #call GAME_OVER
+    call GAME_OVER
 END:
     br END
 
