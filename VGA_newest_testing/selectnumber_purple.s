@@ -604,3 +604,14 @@ DRAW_PURPLE8:
 DRAW_PURPLE9:
 	movia r3, PURPLE9
 	br END
+
+END:
+	# reg restore
+	ldw ra, 0(sp)
+	ldw r16, 4(sp)
+	ldw r17, 8(sp)
+	ldw r18, 12(sp)
+	ldw r19, 16(sp)
+	ldw r20, 20(sp)
+	addi sp, sp, 24
+    ret

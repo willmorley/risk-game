@@ -93,9 +93,9 @@ H_43:
    .incbin "H_43.bmp"
 
 .section .text
-.global VGA
+.global VGA_HIGHLIGHT
 
-VGA:
+VGA_HIGHLIGHT:
 	addi sp, sp, -36
 	stw ra, 0(sp)
 	stw r16, 4(sp)
